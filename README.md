@@ -42,16 +42,20 @@ The mechanics of this game are pretty simple,the player can move left and right,
 
 
 # Enemies
-##FireBall: They will move left and right always in your direction without changing platforms , they can be killed using the hammer. 
+### FireBall: 
+They will move left and right always in your direction without changing platforms , they can be killed using the hammer. 
 
 
-## Skeleton koopa: They will move left and right without changing platforms , they can be killed using the hammer or the ice flower. Once dead they will revive after a while.
+### Skeleton koopa: 
+They will move left and right without changing platforms , they can be killed using the hammer or the ice flower. Once dead they will revive after a while.
 
 
-## Boos : They will float,following you at a slow pace, they can only die by the ice flower, otherwise they will continue following you till you die or win.
+### Boos : 
+They will float,following you at a slow pace, they can only die by the ice flower, otherwise they will continue following you till you die or win.
 
 
 
-## Donkey Kong: He is in the top and wont move from there. He has two attacks: the first one being a rolling barrel that rolls down all the platforms and the second attack is a falling barrel, he throws in the direction you had and when it hits platforms he changes slightly direction. Once you reach the top he dies.
+### Donkey Kong: 
+He is in the top and wont move from there. He has two attacks: the first one being a rolling barrel that rolls down all the platforms and the second attack is a falling barrel, he throws in the direction you had and when it hits platforms he changes slightly direction. Once you reach the top he dies.
 
 
