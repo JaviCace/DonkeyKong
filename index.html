@@ -8,13 +8,63 @@
     <link rel="stylesheet" href="./css/game.css">
     <script src="./lib/phaser.js"></script>
 
-    <title>Examen Ordinaria 22-23</title>
+    <title>Donkey Kong</title>
 </head>
 
 <body>
-    <h1>CIRCUS</h1>
-	<div id='game'></div>
+
+    <Header>
+        <p>DONKEY KONG</p>
+    </Header>
+    <div id="game"></div>
+
+    <nav>
+        <button onclick="showTab('controles')">Controles</button>
+        <button onclick="showTab('lore')">Lore</button>
+        <button onclick="showTab('sobre-MI')">Sobre Mi</button>
+    </nav>
+
+    <section id="controles" class="active">
+        <h2>Controles</h2>
+        <p>Utiliza las siguientes teclas para interactuar:</p>
+        <ul style="display: inline-block; text-align: left; margin: 0 auto; padding-left: 0; list-style-position: inside;">
+            <li><b>W:</b> Subir Escaleras</li>
+            <li><b>A:</b> Mover a la izquierda</li>
+            <li><b>S:</b> Bajar Escaleras</li>
+            <li><b>D:</b> Mover a la derecha</li>
+             <li><b>Space:</b> Saltar</li>
+             <li><b>E:</b> Usar item</li>
+        </ul>
+    </section>
+
+    <section id="sobre-MI" style="display:none;">
+        <h2>Sobre El Autor</h2>
+        <p>Soy un estudiantes del Grado de Desarrollo de VideoJuegos de la UCM y quiero animaros y dar las gracias por descargaros el juego.</p>
+    </section>
+
+    <section id="lore" style="display:none;">
+        <h2>Lore</h2>
+        <p>La princesa del reino champiñón ha sido tomada como rehén por el Poderoso Donkey Kong para controlar su reino. Ahora, tú, un fontanero bajito y regordete, tienes la misión de salvarla, aunque probablemente haya muchos caballeros mejores para salvarla.</p>
+    </section>
+
+    <footer>
+        <p>Grado en Desarrollo de Videojuegos &middot; <a target="_blank" href="http://informatica.ucm.es">Facultad de Informática</a> &middot; <a target="_blank" href="http://www.ucm.es">UCM</a></p>
+    </footer>
+
     <script src="./src/game.js" type="module"></script>
+
+    <script>
+        function showTab(tabId) {
+            document.querySelectorAll('section').forEach(section => {
+                section.style.display = 'none';
+            });
+            document.querySelectorAll('nav button').forEach(button => {
+                button.classList.remove('active');
+            });
+            document.getElementById(tabId).style.display = 'block';
+            event.target.classList.add('active');
+        }
+    </script>
 </body>
 
-</html>
+</html> 
