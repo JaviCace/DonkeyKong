@@ -14,7 +14,7 @@ class MainMenuScene extends Phaser.Scene
     create() 
     {
        this.add.image(this.cameras.main.width / 2,this.cameras.main.height / 2,'Background');
-        var title = this.add.text(80, 100, 'DONKEY KONG', {fontFamily: 'arcade_classic',fontSize: '78px',color: '#FFA500' });
+        var title = this.add.text(80, 100, 'MONKEY KONG', {fontFamily: 'arcade_classic',fontSize: '78px',color: '#FFA500' });
        var play = this.add.text(350, 400, 'JUGAR', {fontFamily: 'arcade_classic',fontSize: '56px',color: '#F19100' });
        play.setInteractive();
 

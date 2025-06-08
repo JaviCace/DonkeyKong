@@ -25,13 +25,14 @@ const config = {
     },
     pixelArt: true,
     physics: {
-        default: 'matter', 
-        matter: {
-            gravity: { y: 1 }, 
+        default: 'arcade', 
+        arcade: {
+            gravity: { y: 300 }, 
             debug: false
-        }
+        },
+    
     },
-    scene: [ PreloadScene,MainMenuScene,MapScene,LevelScene,LoseScene,WinScene],
+    scene: [ PreloadScene, MainMenuScene, MapScene, LevelScene, LoseScene, WinScene ],
     title: "Donkey Kong",
     version: "1.0.0"
 };

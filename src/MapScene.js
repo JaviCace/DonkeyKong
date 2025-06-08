@@ -23,7 +23,7 @@ class MapScene extends Phaser.Scene {
         this.level2 = this.add.image(this.posX2, this.posY2, 'nivel');
         this.level3 = this.add.image(this.posX3, this.posY3, 'nivel');
 
-        this.player = this.add.sprite(this.posX1, this.posY1 - 20, 'player', 0);
+        this.player = this.add.sprite(this.posX1, this.posY1 - 20, 'player', 3);
 
         const title = this.add.text(365, 600, 'Main Menu', { fontFamily: 'arcade_classic', fontSize: '32px', color: '#FFA500' });
         title.setInteractive();
