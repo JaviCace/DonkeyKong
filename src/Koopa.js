@@ -1,29 +1,30 @@
-export default class Koopa {
+export default class Koopa 
+{
   constructor(scene, x, y, texture = 'koopa') {
     this.scene = scene;
 
-    // Crear sprite con Arcade Physics
     this.sprite = scene.physics.add.sprite(x, y, texture, 0);
     this.sprite.setBounce(0);
     this.sprite.setCollideWorldBounds(true); // Detectar colisiones con bordes
     this.sprite.setScale(2, 2);
-
+    this.sprite.refreshBody();
     this.speed = 100;
-    this.direction = 1; // 1 = derecha, -1 = izquierda
-
+    this.direction = 1;
+    
     this.animator();
   }
 
   moveLeft() {
     this.sprite.setVelocityX(-this.speed);
     this.playAnimation('walk');
-    this.sprite.flipX = true; // ← voltea para mirar a la izquierda
+    
+    this.sprite.flipX = false; 
   }
 
   moveRight() {
     this.sprite.setVelocityX(this.speed);
     this.playAnimation('walk');
-    this.sprite.flipX = false; // → original (mirar a la derecha)
+    this.sprite.flipX = true; 
   }
 
   animator() {

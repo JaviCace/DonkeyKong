@@ -11,8 +11,8 @@ export default class Fireball {
     this.sprite.setBounce(0);
     this.sprite.setCollideWorldBounds(true); // para que rebote en los bordes si se desea
     this.sprite.setGravityY(0); // Sin gravedad si quieres simular fuego flotante
-    this.sprite.setScale(3, 3);
-
+    this.sprite.setScale(2, 3);
+    this.sprite.refreshBody();
     this.animator();
   }
 
@@ -44,7 +44,7 @@ export default class Fireball {
   }
 
   update() {
-    if (this.direction === -1) {
+    if (this.direction == -1) {
       this.moveLeft();
     } else {
       this.moveRight();

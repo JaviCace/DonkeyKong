@@ -27,14 +27,14 @@ class LevelScene extends Phaser.Scene
    
     this.boo = new Boo(this,100,100,'boo');
 
+//this.koopa = new Koopa(this,200,100,'koopa');
+//this.fireballes = [];
 
-this.fireballes = [];
-
-this.fireballes.push(new Fireball(this, 400, 100, 'fire'));
-this.fireballes.push(new Fireball(this, 300, 100, 'fire'));
+//this.fireballes.push(new Fireball(this, 400, 100, 'fire'));
+//this.fireballes.push(new Fireball(this, 300, 100, 'fire'));
 
 this.player = new Player(this, 100, 100, 'player');
-this.koopa = new Koopa(this,400,100,'koopa');
+
 
     
 
@@ -44,8 +44,8 @@ this.flores.add(new Flor(this, this.scale.width / 2, this.scale.height - 64,'flo
 this.flores.add(new Flor(this, 300, 300, 'flor', 13, 2, 15).sprite);
 
 this.physics.add.collider(this.player.sprite, this.flores);
-this.physics.add.collider(this.koopa.sprite, this.flores);
-this.fireballes.forEach(f => this.physics.add.collider(f.sprite, this.flores));
+//this.physics.add.collider(this.koopa.sprite, this.flores);
+//this.fireballes.forEach(f => this.physics.add.collider(f.sprite, this.flores));
   
 
        this.counter = 120;
@@ -79,9 +79,9 @@ this.fireballes.forEach(f => this.physics.add.collider(f.sprite, this.flores));
       }
 
       this.player.update(this.keys);
-      this.fireballes.forEach(f => f.update());
+      //this.fireballes.forEach(f => f.update());
       this.boo.update(this.player);
-      this.koopa.update();
+      //this.koopa.update();
      }
     
 

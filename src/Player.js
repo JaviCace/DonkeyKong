@@ -4,24 +4,25 @@ export default class Player {
     this.sprite = scene.physics.add.sprite(x, y, texture, 3);
     this.lifes = 3;
     this.speed = 160;
-    this.jumpForce = 350;
+    this.jumpForce = 250;
     this.isOnGround = false;
 
     this.sprite.setBounce(0.2);
-
+ this.sprite.refreshBody();
     this.animator(); 
   }
 
   moveLeft() {
     this.sprite.setVelocityX(-this.speed);
     this.playAnimation('walk');
-    this.sprite.flipX = true;
+    
+    this.sprite.flipX = false;
   }
 
   moveRight() {
     this.sprite.setVelocityX(this.speed);
     this.playAnimation('walk');
-    this.sprite.flipX = false;
+    this.sprite.flipX = true;
   }
 
   jump() {

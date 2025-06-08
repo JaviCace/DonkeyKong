@@ -6,11 +6,12 @@ export default class Boo {
 
     this.speed = 30; 
     this.sprite.setScale(3, 3);
+    this.sprite.refreshBody();
     this.sprite.setCollideWorldBounds(true);
     this.sprite.setGravity(0); // Sin gravedad
     this.sprite.setBounce(0);  // No rebota
     this.sprite.body.allowGravity = false; 
-
+    
     this.animator();
   }
 
