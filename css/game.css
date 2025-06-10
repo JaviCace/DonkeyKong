@@ -7,7 +7,7 @@
 
 #game {
     width: 100%;
-    height: 800px; /* Ajusta según la altura que quieras para el juego */
+    height: 700px; /* Ajusta según la altura que quieras para el juego */
     background-color: #1b3a2f; /* verde oscuro bosque */
     
     /* Ponemos dos imágenes: una a la izquierda y otra a la derecha */

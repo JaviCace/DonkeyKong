@@ -30,6 +30,11 @@ export default class Fireball extends Phaser.Physics.Arcade.Sprite {
     this.flipX = true;
   }
 
+  cambiarDireccion()
+  {
+    this.direction = - this.direction
+  }
+
   animator() {
     this.scene.anims.create({
       key: 'walkF',

@@ -3,7 +3,7 @@ export default class Koopa extends Phaser.Physics.Arcade.Sprite {
     super(scene, x, y, texture, 0);
     this.scene = scene;
     this.speed = 100;
-    this.direction = 1;
+    this.direction = -1;
 
     // Añadir a escena y físicas
     scene.add.existing(this);
@@ -42,12 +42,19 @@ export default class Koopa extends Phaser.Physics.Arcade.Sprite {
     if (!this.scene.anims.exists('dieK')) {
       this.scene.anims.create({
         key: 'dieK',
-        frames: this.scene.anims.generateFrameNumbers('koopa', { start: 4, end: 6 }),
+        frames: [{ key: 'koopa', frame: 4 }],
         frameRate: 10,
         repeat: -1
       });
     }
-
+ if (!this.scene.anims.exists('reviveK')) {
+      this.scene.anims.create({
+        key: 'dieK',
+       frames: this.scene.anims.generateFrameNumbers('koopa', { start: 4, end: 6 }),
+        frameRate: 10,
+        repeat: -1
+      });
+    }
     if (!this.scene.anims.exists('iceK')) {
       this.scene.anims.create({
         key: 'iceK',
@@ -72,6 +79,10 @@ export default class Koopa extends Phaser.Physics.Arcade.Sprite {
       this.anims.play(key, true);
     }
   }
+    cambiarDireccion()
+  {
+    this.direction = - this.direction
+  }
 
   update() {
     // Movimiento automático
@@ -87,5 +98,22 @@ export default class Koopa extends Phaser.Physics.Arcade.Sprite {
     } else if (this.body.blocked.right) {
       this.direction = -1;
     }
+
+    Die()
+    {
+
+
+      
+    }
+    Revive()
+    {
+
+    }
+
+    Iced()
+    {
+
+    }
+
   }
 }

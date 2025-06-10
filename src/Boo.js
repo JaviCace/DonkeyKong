@@ -9,6 +9,7 @@ export default class Boo extends Phaser.Physics.Arcade.Sprite {
     scene.physics.add.existing(this);
 
     this.setScale(3, 3);
+    this.refreshBody();
     this.setCollideWorldBounds(true);
     this.setBounce(0);
     this.setGravity(0);

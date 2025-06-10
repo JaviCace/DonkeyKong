@@ -1,5 +1,8 @@
 # Donkey Kong 
 
+# Who are we
+I am a student of the Universidad Complutense de Madrid and this is a project for the subject Programacion de videoJuegos de Lenguajes Interpretados.
+
 # Genre and General Vision
 Arcade platform game inspired by the original Donkey Kong with added elements from the Super Mario Bros universe, including enemies like Boos and Koopas, and the use of vines for movement dynamics. The game is designed to provide a nostalgic yet fresh challenge for fans of classic platformers.
 
@@ -58,4 +61,9 @@ They will float,following you at a slow pace, they can only die by the ice flowe
 ### Donkey Kong: 
 He is in the top and wont move from there. He has two attacks: the first one being a rolling barrel that rolls down all the platforms and the second attack is a falling barrel, he throws in the direction you had and when it hits platforms he changes slightly direction. Once you reach the top he dies.
 
+# ScreenShots: 
 
+# Arquitecture: 
+
+# Play Us: 
+https://javicace.github.io/DonkeyKong/

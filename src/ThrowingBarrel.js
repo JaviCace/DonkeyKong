@@ -1,33 +1,58 @@
 export default class ThrowingBarrel extends Phaser.Physics.Arcade.Sprite {
-  constructor(scene, x, y, texture = 'barril', angle = 90) {
+  constructor(scene, x, y, texture = 'barril', directionRadians) {
     super(scene, x, y, texture, 0);
 
     scene.add.existing(this);
     scene.physics.add.existing(this);
 
-    this.angleDegrees = angle; // ángulo en grados
+    this.direction = directionRadians;
     this.speed = 200;
-
-    this.setBounce(0.1);
-    this.setCollideWorldBounds(true);
-    this.setGravityY(0); // control manual del movimiento
+    this.puedecambiar = true;
+    this.setBounce(0);
+    this.setGravityY(0);
     this.setScale(2);
 
     this.scene = scene;
-  
-  }
+    this.isDestroyed = false;
 
-
-
-  setAngle(newAngle) {
-    this.angleDegrees = newAngle;
+    const vx = Math.cos(this.direction) * this.speed;
+    const vy = Math.sin(this.direction) * this.speed;
+    this.body.setVelocity(vx, vy);
   }
 
   update() {
-    const radians = Phaser.Math.DegToRad(this.angleDegrees);
-    const vx = Math.cos(radians) * this.speed;
-    const vy = Math.sin(radians) * this.speed;
-    this.setVelocity(vx, vy);
+    if (this.isDestroyed) return;
 
+    const vx = Math.cos(this.direction) * this.speed;
+    const vy = Math.sin(this.direction) * this.speed;
+    this.body.setVelocity(vx, vy);
+
+    const bounds = this.scene.physics.world.bounds;
+
+    if (
+      this.x < bounds.x ||
+      this.x > bounds.width ||
+      this.y < bounds.y ||
+      this.y > bounds.height
+    ) {
+      this.destroyBarrel();
+    }
+  }
+
+  cambiarDirection(offset) {
+    if (this.puedecambiar) {
+      this.puedecambiar = false;
+      this.direction += Phaser.Math.DegToRad(offset);
+      this.scene.time.delayedCall(750, () => {
+        this.puedecambiar = true;
+      });
+    }
+  }
+
+  destroyBarrel() {
+    if (this.isDestroyed) return;
+    this.isDestroyed = true;
+
+    this.destroy();
   }
 }

@@ -7,24 +7,28 @@ export default class Player extends Phaser.GameObjects.Container {
     this.scene = scene;
     this.lifes = 3;
     this.speed = 160;
-    this.jumpForce = 250;
+    this.jumpForce = 200;
     this.item = null;
 
     this.momentum = 1;
-    this.lastDirection = 0; // -1 (izq), 1 (der), 0 (quieto)
+    this.lastDirection = 0;
 
-    this.sprite = scene.physics.add.sprite(0, 0, texture, 3);
-    this.sprite.setBounce(0.2);
-    this.sprite.setCollideWorldBounds(true);
+    this.golpeado = false;
+    this.controlBlocked = false;
+    this.muerto = false;
 
+    // Sprite
+    this.sprite = scene.add.sprite(0, 0, texture, 3);
+    this.sprite.setOrigin(0.5, 0.5);
     this.add(this.sprite);
+
     scene.add.existing(this);
-    scene.physics.add.existing(this);
+    scene.physics.world.enable(this);
 
     this.body.setSize(this.sprite.width, this.sprite.height);
+    this.body.setOffset(-this.sprite.width / 2, -this.sprite.height / 2);
+    this.body.setCollideWorldBounds(true);
     this.body.setAllowGravity(true);
-    this.setSize(this.sprite.width, this.sprite.height);
-
     this.animator();
   }
 
@@ -61,7 +65,7 @@ export default class Player extends Phaser.GameObjects.Container {
 
     this.scene.anims.create({
       key: 'jumpM',
-      frames: [{ key: 'player', frame: 1 }],
+      frames: [{ key: 'player', frame: 6 }],
       frameRate: 1,
       repeat: 0
     });
@@ -74,9 +78,9 @@ export default class Player extends Phaser.GameObjects.Container {
     });
 
     this.scene.anims.create({
-      key: 'climbM',
-      frames: this.scene.anims.generateFrameNumbers('player', { start: 4, end: 5 }),
-      frameRate: 10,
+      key: 'DieM',
+      frames: [{ key: 'player', frame: 6 }],
+      frameRate: 10 ,
       repeat: -1
     });
   }
@@ -97,7 +101,62 @@ export default class Player extends Phaser.GameObjects.Container {
     }
   }
 
+  hurt() {
+    if (!this.golpeado && !this.muerto) {
+      this.golpeado = true;
+      this.controlBlocked = true;
+      this.lifes -= 1;
+
+      if (this.lifes <= 0) {
+        this.muerto = true;
+        this.sprite.play('DieM', true);
+        return;
+      }
+
+      const pushX = 400;
+      const pushY = -50;
+      let dir = this.lastDirection !== 0 ? this.lastDirection : 1;
+
+      this.body.setVelocityX(-dir * pushX);
+      this.body.setVelocityY(pushY);
+
+      this.scene.time.delayedCall(1000, () => {
+        this.controlBlocked = false;
+      });
+
+      this.scene.time.delayedCall(2000, () => {
+        this.golpeado = false;
+      });
+    }
+  }
+
+  forceDeathState() {
+    this.controlBlocked = true;
+    this.golpeado = false;
+    this.body.setVelocity(0, 0);
+    this.body.allowGravity = false;
+    this.sprite.play('idleM', true);
+  }
+
+  getMuerto() {
+    return this.muerto;
+  }
+
   update(cursors) {
+    if (this.controlBlocked) {
+      const deceleration = 600;
+      const delta = this.scene.game.loop.delta / 1000;
+
+      if (this.body.velocity.x > 0) {
+        this.body.setVelocityX(Math.max(this.body.velocity.x - deceleration * delta, 0));
+      } else if (this.body.velocity.x < 0) {
+        this.body.setVelocityX(Math.min(this.body.velocity.x + deceleration * delta, 0));
+      }
+
+      this.sprite.play('idleM', true);
+      return;
+    }
+
     let direction = 0;
 
     if (cursors.left.isDown) {
@@ -112,7 +171,6 @@ export default class Player extends Phaser.GameObjects.Container {
       this.sprite.play('idleM', true);
     }
 
-    // Reinicia momentum si cambió el sentido del movimiento
     if (direction !== 0 && direction !== this.lastDirection) {
       this.momentum = 1;
     }
