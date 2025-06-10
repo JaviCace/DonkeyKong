@@ -62,8 +62,12 @@ They will float,following you at a slow pace, they can only die by the ice flowe
 He is in the top and wont move from there. He has two attacks: the first one being a rolling barrel that rolls down all the platforms and the second attack is a falling barrel, he throws in the direction you had and when it hits platforms he changes slightly direction. Once you reach the top he dies.
 
 # ScreenShots: 
+![image](https://github.com/user-attachments/assets/30879933-0f1f-4ec3-be20-234c5555de90)
+![image](https://github.com/user-attachments/assets/d5201bbe-c3cf-432a-a5b9-98e8e5dadef6)
+![image](https://github.com/user-attachments/assets/b14e722c-3718-4464-a1b7-b09f5a3df1be)
 
 # Arquitecture: 
+![image](https://github.com/user-attachments/assets/8719481c-d1d5-4cf7-8d22-106e294a46e8)
 
 # Play Us: 
 https://javicace.github.io/DonkeyKong/
