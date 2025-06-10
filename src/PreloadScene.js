@@ -8,11 +8,17 @@ export class PreloadScene extends Phaser.Scene
     this.load.spritesheet('fire','./assets/sprites/fire.png', { frameWidth: 16, frameHeight: 12 });
     this.load.spritesheet('boo','./assets/sprites/boo.png', { frameWidth: 16, frameHeight: 12 });
     this.load.spritesheet('koopa','./assets/sprites/Koopa.png', { frameWidth: 16, frameHeight: 24 });
-    this.load.spritesheet('kong','./assets/sprites/Kong.png', { frameWidth: 16, frameHeight: 24 });
+    this.load.spritesheet('kong','./assets/sprites/Kong.png', { frameWidth: 32, frameHeight: 32 });
+    this.load.spritesheet('barril','./assets/sprites/barril.png', { frameWidth: 16, frameHeight: 10 });
+    this.load.spritesheet('spawner','./assets/sprites/Spawner.png', { frameWidth: 32, frameHeight: 32 });
     this.load.image('Background', './assets/sprites/MainMenu.jpg');
     this.load.image('flor', './assets/sprites/Floor.png');
+    this.load.image('flor2', './assets/sprites/flor2.png');
+    this.load.image('rosa', './assets/sprites/Rosa.png');
+    this.load.image('vine', './assets/sprites/Vine.png');
     this.load.image('flower', './assets/sprites/iceflower.png');
     this.load.image('hammer', './assets/sprites/hammer.png');
+
 
     //audios
     this.load.audio('Menu','./assets/sounds/intro1.mp3');

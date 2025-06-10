@@ -1,17 +1,19 @@
-export default class Boo {
+export default class Boo extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y, texture = 'boo') {
+    super(scene, x, y, texture, 0);
     this.scene = scene;
+    this.speed = 30;
 
-    this.sprite = scene.physics.add.sprite(x, y, texture, 0);
+    // Añadir a escena y sistema de físicas
+    scene.add.existing(this);
+    scene.physics.add.existing(this);
 
-    this.speed = 30; 
-    this.sprite.setScale(3, 3);
-    this.sprite.refreshBody();
-    this.sprite.setCollideWorldBounds(true);
-    this.sprite.setGravity(0); // Sin gravedad
-    this.sprite.setBounce(0);  // No rebota
-    this.sprite.body.allowGravity = false; 
-    
+    this.setScale(3, 3);
+    this.setCollideWorldBounds(true);
+    this.setBounce(0);
+    this.setGravity(0);
+    this.body.allowGravity = false;
+
     this.animator();
   }
 
@@ -25,23 +27,23 @@ export default class Boo {
   }
 
   playAnimation(key) {
-    if (this.sprite.anims.getName() !== key) {
-      this.sprite.anims.play(key, true);
+    if (this.anims.getName() !== key) {
+      this.anims.play(key, true);
     }
   }
 
   followPlayer(player) {
-    const diffX = player.sprite.x - this.sprite.x;
-    const diffY = player.sprite.y - this.sprite.y;
+    const diffX = player.x - this.x;
+    const diffY = player.y - this.y;
 
     const dirX = diffX > 0 ? 1 : -1;
     const dirY = diffY > 0 ? 1 : -1;
 
-    this.sprite.setVelocityX(dirX * this.speed);
-    this.sprite.setVelocityY(dirY * this.speed);
+    this.setVelocityX(dirX * this.speed);
+    this.setVelocityY(dirY * this.speed);
 
     this.playAnimation('fly');
-    this.sprite.flipX = dirX < 0;
+    this.flipX = dirX < 0;
   }
 
   update(player) {

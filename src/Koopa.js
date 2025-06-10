@@ -1,55 +1,56 @@
-export default class Koopa 
-{
+export default class Koopa extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y, texture = 'koopa') {
+    super(scene, x, y, texture, 0);
     this.scene = scene;
-
-    this.sprite = scene.physics.add.sprite(x, y, texture, 0);
-    this.sprite.setBounce(0);
-    this.sprite.setCollideWorldBounds(true); // Detectar colisiones con bordes
-    this.sprite.setScale(2, 2);
-    this.sprite.refreshBody();
     this.speed = 100;
     this.direction = 1;
-    
+
+    // Añadir a escena y físicas
+    scene.add.existing(this);
+    scene.physics.add.existing(this);
+
+    this.setBounce(0);
+    this.setCollideWorldBounds(true);
+    this.setScale(2);
+    this.refreshBody();
+
     this.animator();
   }
 
   moveLeft() {
-    this.sprite.setVelocityX(-this.speed);
-    this.playAnimation('walk');
-    
-    this.sprite.flipX = false; 
+    this.setVelocityX(-this.speed);
+    this.playAnimation('walkK');
+    this.flipX = false;
   }
 
   moveRight() {
-    this.sprite.setVelocityX(this.speed);
-    this.playAnimation('walk');
-    this.sprite.flipX = true; 
+    this.setVelocityX(this.speed);
+    this.playAnimation('walkK');
+    this.flipX = true;
   }
 
   animator() {
-    // Solo crear animaciones si aún no existen
-    if (!this.scene.anims.exists('walk')) {
+    if (!this.scene.anims.exists('walkK')) {
       this.scene.anims.create({
-        key: 'walk',
+        key: 'walkK',
         frames: this.scene.anims.generateFrameNumbers('koopa', { start: 0, end: 3 }),
         frameRate: 10,
         repeat: -1
       });
     }
 
-    if (!this.scene.anims.exists('die')) {
+    if (!this.scene.anims.exists('dieK')) {
       this.scene.anims.create({
-        key: 'die',
+        key: 'dieK',
         frames: this.scene.anims.generateFrameNumbers('koopa', { start: 4, end: 6 }),
         frameRate: 10,
         repeat: -1
       });
     }
 
-    if (!this.scene.anims.exists('ice')) {
+    if (!this.scene.anims.exists('iceK')) {
       this.scene.anims.create({
-        key: 'ice',
+        key: 'iceK',
         frames: [{ key: 'koopa', frame: 7 }],
         frameRate: 10,
         repeat: -1
@@ -67,8 +68,8 @@ export default class Koopa
   }
 
   playAnimation(key) {
-    if (this.sprite.anims.getName() !== key) {
-      this.sprite.anims.play(key, true);
+    if (this.anims.getName() !== key) {
+      this.anims.play(key, true);
     }
   }
 
@@ -80,10 +81,10 @@ export default class Koopa
       this.moveRight();
     }
 
-    // Cambiar dirección al tocar paredes
-    if (this.sprite.body.blocked.left) {
+    // Cambiar dirección al chocar
+    if (this.body.blocked.left) {
       this.direction = 1;
-    } else if (this.sprite.body.blocked.right) {
+    } else if (this.body.blocked.right) {
       this.direction = -1;
     }
   }
