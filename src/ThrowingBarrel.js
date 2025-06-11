@@ -11,7 +11,7 @@ export default class ThrowingBarrel extends Phaser.Physics.Arcade.Sprite {
     this.setBounce(0);
     this.setGravityY(0);
     this.setScale(2);
-
+    this.refreshBody();
     this.scene = scene;
     this.isDestroyed = false;
 
@@ -29,14 +29,6 @@ export default class ThrowingBarrel extends Phaser.Physics.Arcade.Sprite {
 
     const bounds = this.scene.physics.world.bounds;
 
-    if (
-      this.x < bounds.x ||
-      this.x > bounds.width ||
-      this.y < bounds.y ||
-      this.y > bounds.height
-    ) {
-      this.destroyBarrel();
-    }
   }
 
   cambiarDirection(offset) {
@@ -49,10 +41,4 @@ export default class ThrowingBarrel extends Phaser.Physics.Arcade.Sprite {
     }
   }
 
-  destroyBarrel() {
-    if (this.isDestroyed) return;
-    this.isDestroyed = true;
-
-    this.destroy();
-  }
 }

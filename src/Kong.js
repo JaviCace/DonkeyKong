@@ -11,9 +11,8 @@ export default class Kong extends Phaser.Physics.Arcade.Sprite {
     this.barrels = [];
     this.currentAction = null;
 
-    // Agregar a la escena y activar física
     scene.add.existing(this);
-    scene.physics.add.existing(this); // 'true' para que sea estático
+    scene.physics.add.existing(this); 
 
     this.setScale(3);
     this.refreshBody();
@@ -71,7 +70,7 @@ Behavior() {
     callback: () => {
       if (this.currentAction) return;
 
-      this.currentAction = true; // bloqueo acción
+      this.currentAction = true; 
 
       let barrelType = Phaser.Math.Between(0, 2);
       let barrel;

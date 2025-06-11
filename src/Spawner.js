@@ -1,49 +1,57 @@
 export default class Spawner extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y, texture = 'spawner') {
-    super(scene, x, y, texture,0);
+    super(scene, x, y, texture, 0);
 
+    this.scene = scene;
+    this.creado = false;
+    this.item = null;
 
     scene.add.existing(this);
     scene.physics.add.existing(this);
-   
-    this.scene = scene;
 
-   
     this.setImmovable(true);
     this.setScale(2);
     this.refreshBody();
-    this.creado = false;
 
-    this.scene.time.addEvent({
-      delay: 5000,
-      loop: true,
-      callback: () => {
-        this.creado = true;
-
-        this.scene.time.delayedCall(10000, () => {
-          this.creado = false;
-        });
-      }
-    });
+    this.spawnCooldown = 5000; 
+    this.activeTime = 10000;   
+    this.timer = 0;
   }
-    getItem()
-    {
-      
-      this.creado = false;
 
+  update(time, delta) {
+    this.timer += delta;
+ console.log(this.creado);
+    if (!this.creado && this.timer >= this.spawnCooldown) {
+      this.creado = true;
+      console.log(this.creado);
+      this.timer = 0;
+    } else if (this.creado && this.timer >= this.activeTime) {
+      this.creado = false;
+      console.log(this.creado);
+      this.timer = 0;
     }
-     getCreado()
-  {
+  }
+
+  getItem() {
+    this.creado = false;
+    this.timer = 0;
+    return this.item;
+  }
+
+  getCreado() {
     return this.creado;
   }
 }
+
+
+
+
 export class FlowerSpawner extends Spawner {
   constructor(scene, x, y, texture = 'spawner') {
     super(scene, x, y, texture);
     this.item = 1;
 
-    this.animator();
-
+    this.createAnimations();
     this.play(this.creado ? 'Sflawner' : 'idleSF');
 
     this.scene.time.addEvent({
@@ -59,10 +67,10 @@ export class FlowerSpawner extends Spawner {
     });
   }
 
-  animator() {
+  createAnimations() {
     if (!this.scene.anims.exists('idleSF')) {
       this.scene.anims.create({
-        key: 'idleSF',  // <-- CORREGIDO
+        key: 'idleSF',
         frames: this.scene.anims.generateFrameNumbers('spawner', { start: 0, end: 1 }),
         frameRate: 10,
         repeat: -1
@@ -72,19 +80,16 @@ export class FlowerSpawner extends Spawner {
     if (!this.scene.anims.exists('Sflawner')) {
       this.scene.anims.create({
         key: 'Sflawner',
-        frames: this.scene.anims.generateFrameNumbers('spawner', { start: 2, end: 3 }),
+        frames: this.scene.anims.generateFrameNumbers('spawner', { start: 4, end: 5 }),
         frameRate: 10,
         repeat: -1
       });
     }
   }
-
-  getItem() {
-    this.creado = false;
-    return this.item;
-  }
- 
 }
+
+
+
 
 
 export class HammerSpawner extends Spawner {
@@ -92,13 +97,11 @@ export class HammerSpawner extends Spawner {
     super(scene, x, y, texture);
     this.item = 0;
 
-    this.animator();
-
+    this.createAnimations();
     this.play(this.creado ? 'Spammer' : 'idleSH');
 
-    
     this.scene.time.addEvent({
-      delay: 100, 
+      delay: 100,
       loop: true,
       callback: () => {
         if (this.creado && this.anims.currentAnim.key !== 'Spammer') {
@@ -110,11 +113,11 @@ export class HammerSpawner extends Spawner {
     });
   }
 
-  animator() {
+  createAnimations() {
     if (!this.scene.anims.exists('idleSH')) {
       this.scene.anims.create({
         key: 'idleSH',
-        frames: this.scene.anims.generateFrameNumbers('spawner', { start: 0, end: 1}),
+        frames: this.scene.anims.generateFrameNumbers('spawner', { start: 0, end: 1 }),
         frameRate: 10,
         repeat: -1
       });
@@ -124,14 +127,9 @@ export class HammerSpawner extends Spawner {
       this.scene.anims.create({
         key: 'Spammer',
         frames: this.scene.anims.generateFrameNumbers('spawner', { start: 2, end: 3 }),
-        frameRate: 1,
-        repeat: 0
+        frameRate: 10,
+        repeat: -1
       });
     }
-  }
-
-  getItem() {
-    this.creado = false;
-    return this.item;
   }
 }

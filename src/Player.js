@@ -7,8 +7,9 @@ export default class Player extends Phaser.GameObjects.Container {
     this.scene = scene;
     this.lifes = 3;
     this.speed = 160;
-    this.jumpForce = 200;
+    this.jumpForce = 250;
     this.item = null;
+  
 
     this.momentum = 1;
     this.lastDirection = 0;
@@ -27,7 +28,6 @@ export default class Player extends Phaser.GameObjects.Container {
 
     this.body.setSize(this.sprite.width, this.sprite.height);
     this.body.setOffset(-this.sprite.width / 2, -this.sprite.height / 2);
-    this.body.setCollideWorldBounds(true);
     this.body.setAllowGravity(true);
     this.animator();
   }
@@ -90,12 +90,20 @@ export default class Player extends Phaser.GameObjects.Container {
       this.item.destroy();
     }
 
-    if (type === 'hammer') {
-      this.item = new Hammer(this.scene, 0, -20);
-    } else if (type === 'iceflower') {
-      this.item = new IceFlower(this.scene, 0, -20);
-    }
+    if (type === 0) {
+      this.item = new Hammer(this.scene, -10, -5,'hammer',this);
+  if (!this.scene.itemGroup) {
+    this.scene.itemGroup = this.scene.physics.add.group();
+  }
 
+  this.scene.itemGroup.add(this.item);
+    
+
+    } else if (type === 1) {
+      this.item = new IceFlower(this.scene, 3, -5,'flower',this);
+      
+    }
+     
     if (this.item) {
       this.add(this.item);
     }
@@ -143,6 +151,15 @@ export default class Player extends Phaser.GameObjects.Container {
   }
 
   update(cursors) {
+   if (this.body.y > this.scene.scale.height + 100) {
+    this.lifes = 0;
+    this.muerto = true;
+    this.controlBlocked = true;
+    this.body.setVelocity(0, 0);
+    this.body.allowGravity = false;
+    this.sprite.play('DieM', true);
+    return;
+  }
     if (this.controlBlocked) {
       const deceleration = 600;
       const delta = this.scene.game.loop.delta / 1000;
@@ -181,8 +198,11 @@ export default class Player extends Phaser.GameObjects.Container {
       this.jump();
     }
 
-    if (this.item) {
-      this.item.update();
-    }
+   if (this.item && !this.item.destroyed && this.item.scene) {
+  this.item.update();
+} else {
+  this.item = null;  // Limpia la referencia si ya está destruido
+}
+
   }
 }

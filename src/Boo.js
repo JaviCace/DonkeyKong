@@ -3,12 +3,12 @@ export default class Boo extends Phaser.Physics.Arcade.Sprite {
     super(scene, x, y, texture, 0);
     this.scene = scene;
     this.speed = 30;
-
+    this.isDying = false;
     // Añadir a escena y sistema de físicas
     scene.add.existing(this);
     scene.physics.add.existing(this);
 
-    this.setScale(3, 3);
+    this.setScale(2, 2);
     this.refreshBody();
     this.setCollideWorldBounds(true);
     this.setBounce(0);
@@ -24,6 +24,12 @@ export default class Boo extends Phaser.Physics.Arcade.Sprite {
       frames: this.scene.anims.generateFrameNumbers('boo', { start: 0, end: 1 }),
       frameRate: 10,
       repeat: -1,
+    });
+    this.scene.anims.create({
+      key: 'iceB',
+     frames: [{ key: 'boo', frame: 2}],
+      frameRate: 10,
+      repeat: 0,
     });
   }
 
@@ -48,6 +54,16 @@ export default class Boo extends Phaser.Physics.Arcade.Sprite {
   }
 
   update(player) {
+     if (this.isDying) return;
     this.followPlayer(player);
   }
+
+    Iced() {
+       if (this.isDying) return;
+  this.setVelocity(0);
+  this.play('iceB', true);
+    this.destroy();
+
+ 
+}
 }

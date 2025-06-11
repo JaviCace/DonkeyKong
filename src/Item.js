@@ -14,7 +14,7 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
     this.setScale(1.5);
 
     // Asignar tecla V
-    this.keyV = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.V);
+    this.keyV = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
 
     // Autodestrucción a los 10 segundos
     this.scene.time.delayedCall(10000, () => {

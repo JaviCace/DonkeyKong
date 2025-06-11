@@ -4,7 +4,7 @@ export default class Fireball extends Phaser.Physics.Arcade.Sprite {
     this.scene = scene;
     this.speed = 100;
     this.direction = 1;
-
+    this.isDying = false;
     // Agregar a escena y sistema de físicas
     scene.add.existing(this);
     scene.physics.add.existing(this);
@@ -42,6 +42,12 @@ export default class Fireball extends Phaser.Physics.Arcade.Sprite {
       frameRate: 10,
       repeat: -1
     });
+     this.scene.anims.create({
+      key: 'iceB',
+     frames: [{ key: 'fire', frame: 2}],
+      frameRate: 10,
+      repeat: 0,
+    });
   }
 
   playAnimation(key) {
@@ -51,10 +57,19 @@ export default class Fireball extends Phaser.Physics.Arcade.Sprite {
   }
 
   update() {
+    if (this.isDying) return;
     if (this.direction === -1) {
       this.moveLeft();
     } else {
       this.moveRight();
     }
+  }
+
+      Die() {
+       if (this.isDying) return;
+  this.setVelocity(0);
+   this.play('iceB', true);
+    this.destroy();
+
   }
 }

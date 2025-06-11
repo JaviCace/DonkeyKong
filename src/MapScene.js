@@ -18,7 +18,7 @@ class MapScene extends Phaser.Scene {
     }
 
     create() {
-        this.add.image(this.cameras.main.width / 2,this.cameras.main.height / 2,'mapa'),
+        this.add.image(this.cameras.main.width / 2,this.cameras.main.height / 2,'mapa');
         this.level1 = this.add.image(this.posX1, this.posY1, 'nivel');
         this.level2 = this.add.image(this.posX2, this.posY2, 'nivel');
         this.level3 = this.add.image(this.posX3, this.posY3, 'nivel');
@@ -72,15 +72,18 @@ class MapScene extends Phaser.Scene {
              this.music.stop();
             if (this.level == 1) 
                 {
-                    this.scene.start('LevelScene',1);
+                    this.scene.start('LevelScene1');
+                    this.scene.stop();
                 }
            else if (this.level == 2) 
                 {
-                    this.scene.start('LevelScene',2);
+                    this.scene.start('LevelScene2');
+                     this.scene.stop();
                 }
                 else 
                  {
-                    this.scene.start('LevelScene',3);
+                    this.scene.start('LevelScene3');
+                     this.scene.stop();
                 }
         }
 }

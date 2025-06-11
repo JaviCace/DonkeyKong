@@ -18,14 +18,17 @@ class LoseScene extends Phaser.Scene
 
     create() 
     {
+        this.add.image(this.cameras.main.width / 2,this.cameras.main.height / 2,'Lose');
        this.audio = true;
        this.puntuaciones = 0;
-       var play = this.add.text(350, 400, 'You Loose', {fontFamily: 'arcade_classic',fontSize: '56px',color: '#FFA500' });
+        var play = this.add.text(150, 100, 'Kong Escaped', {fontFamily: 'arcade_classic',fontSize: '56px',color: '#000000' });
+       var play = this.add.text(150, 700, 'Back to Map', {fontFamily: 'arcade_classic',fontSize: '56px',color: '#000000' });
        play.setInteractive();
-       this.puntos = this.add.text(350, 100, 'Puntos:', {fontFamily: 'arcade_classic',fontSize: '56px',color: '#FFA500' });
-       this.puntuacion = this.add.text(350, 170, '0', {fontFamily: 'arcade_classic',fontSize: '56px',color: '#FFA500' });
+       this.puntos = this.add.text(350, 300, 'Puntos:', {fontFamily: 'arcade_classic',fontSize: '56px',color: '#000000' });
+       this.puntuacion = this.add.text(350, 370, '0', {fontFamily: 'arcade_classic',fontSize: '56px',color: '#000000' });
         play.on('pointerdown', () => {
             this.scene.start('MapScene');
+            this.scene.stop();
             this.music2.stop();
             this.music1.stop();
         });

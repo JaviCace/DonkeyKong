@@ -7,7 +7,7 @@ export default class RollingBarrel extends Phaser.Physics.Arcade.Sprite {
     this.setBounce(0.1);
     this.setGravityY(300);
     this.setScale(2);
-
+ this.refreshBody();
     this.speed = 250;
 
     this.scene = scene;
@@ -21,14 +21,7 @@ export default class RollingBarrel extends Phaser.Physics.Arcade.Sprite {
 
     const bounds = this.scene.physics.world.bounds;
 
-    if (
-      this.x < bounds.x ||
-      this.x > bounds.width ||
-      this.y < bounds.y ||
-      this.y > bounds.height
-    ) {
-      this.destroyBarrel();
-    }
+
   }
 
   changeDirection() {
@@ -42,10 +35,4 @@ export default class RollingBarrel extends Phaser.Physics.Arcade.Sprite {
     });
   }
 
-  destroyBarrel() {
-    if (this.isDestroyed) return;
-    this.isDestroyed = true;
-
-    this.destroy();
-  }
 }

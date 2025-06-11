@@ -4,11 +4,18 @@ export default class Hammer extends Item {
   constructor(scene, x, y, texture = 'hammer', owner) {
     super(scene, x, y, texture);
 
-    this.owner = owner; // Quién usa el martillo (ej: jugador)
-    this.originalScale = { x: this.sprite.scaleX, y: this.sprite.scaleY };
-    this.originalPosition = { x: this.sprite.x, y: this.sprite.y };
+    this.owner = owner;
+    this.originalScale = { x: this.scaleX, y: this.scaleY };
+    this.originalPosition = { x: this.x, y: this.y };
 
     this.isActing = false;
+    this.flipX = true;
+
+    // Guardar tamaño original del body
+    this.originalBodySize = {
+      width: this.body.width,
+      height: this.body.height,
+    };
   }
 
   accion() {
@@ -16,32 +23,36 @@ export default class Hammer extends Item {
 
     this.isActing = true;
 
-    // Guardar posición original
-    const { x, y } = this.sprite;
-    const dir = this.owner.flipX ? -1 : 1;
+    const { x, y } = this;
+    const dir = this.owner.sprite.flipX ? 1 : -1;
 
-    // Agrandar visualmente
-    this.sprite.setScale(this.originalScale.x * 1.5, this.originalScale.y * 1.5);
+    // Escalar visualmente
+    this.setScale(this.originalScale.x * 1.5, this.originalScale.y * 1.5);
+    this.refreshBody();
 
-    // Opcional: agrandar físicamente también
-    const body = this.sprite.body;
-    if (body) {
-      body.setSize(body.width * 1.5, body.height * 1.5, true);
-    }
+    // Aumentar tamaño del body
+    this.body.setSize(
+      this.originalBodySize.width * 1.5,
+      this.originalBodySize.height * 1.5,
+      true
+    );
 
-    // Avanzar un poco hacia adelante
-    this.sprite.x += dir * 30;
+    // Mover posición según dirección
+    this.x += dir === 1 ? 30 : 8;
 
-    // Después de 300ms volver al tamaño/posición original
     this.scene.time.delayedCall(300, () => {
-      this.sprite.setScale(this.originalScale.x, this.originalScale.y);
-      this.sprite.setPosition(x, y);
+      // Restaurar escala
+      this.setScale(this.originalScale.x, this.originalScale.y);
+      this.setPosition(x, y);
 
-      // Restaurar hitbox
-      if (body) {
-        body.setSize(body.width / 1.5, body.height / 1.5, true);
-      }
+      // Restaurar tamaño original del body
+      this.body.setSize(
+        this.originalBodySize.width,
+        this.originalBodySize.height,
+        true
+      );
 
+      this.refreshBody();
       this.isActing = false;
     });
   }

@@ -1,8 +1,8 @@
 import { MainMenuScene } from "./MainMenuScene.js";
 import { MapScene } from "./MapScene.js";
-import { LevelScene } from "./LevelScene.js";
+import { LevelScene1,LevelScene2,LevelScene3 } from "./LevelScene.js";
 import { LoseScene } from "./Lose.js";
-import { WinScene } from "./Win.js";
+import { WinScene,NextScene } from "./Win.js";
 import { PreloadScene } from "./PreloadScene.js";
 
 
@@ -28,11 +28,11 @@ const config = {
         default: 'arcade', 
         arcade: {
             gravity: { y: 300 }, 
-            debug: false
+            debug: true
         },
     
     },
-    scene: [ PreloadScene, MainMenuScene, MapScene, LevelScene, LoseScene, WinScene ],
+    scene: [ PreloadScene, MainMenuScene, MapScene,LevelScene1 ,LevelScene2,LevelScene3, LoseScene, WinScene,NextScene ],
     title: "Donkey Kong",
     version: "1.0.0"
 };

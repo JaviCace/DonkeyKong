@@ -4,14 +4,14 @@ export default class Koopa extends Phaser.Physics.Arcade.Sprite {
     this.scene = scene;
     this.speed = 100;
     this.direction = -1;
-
+   this.isDying = false;
     // Añadir a escena y físicas
     scene.add.existing(this);
     scene.physics.add.existing(this);
 
     this.setBounce(0);
     this.setCollideWorldBounds(true);
-    this.setScale(2);
+    this.setScale(1.5);
     this.refreshBody();
 
     this.animator();
@@ -49,7 +49,7 @@ export default class Koopa extends Phaser.Physics.Arcade.Sprite {
     }
  if (!this.scene.anims.exists('reviveK')) {
       this.scene.anims.create({
-        key: 'dieK',
+        key: 'reviveK',
        frames: this.scene.anims.generateFrameNumbers('koopa', { start: 4, end: 6 }),
         frameRate: 10,
         repeat: -1
@@ -60,7 +60,7 @@ export default class Koopa extends Phaser.Physics.Arcade.Sprite {
         key: 'iceK',
         frames: [{ key: 'koopa', frame: 7 }],
         frameRate: 10,
-        repeat: -1
+        repeat:-1
       });
     }
 
@@ -85,6 +85,7 @@ export default class Koopa extends Phaser.Physics.Arcade.Sprite {
   }
 
   update() {
+    if (this.isDying) return;
     // Movimiento automático
     if (this.direction === -1) {
       this.moveLeft();
@@ -98,22 +99,24 @@ export default class Koopa extends Phaser.Physics.Arcade.Sprite {
     } else if (this.body.blocked.right) {
       this.direction = -1;
     }
-
+  }
     Die()
     {
 
-
+   return false;
       
     }
     Revive()
     {
-
+return false;
     }
 
-    Iced()
-    {
+  Iced() {
+     if (this.isDying) return;
+  this.setVelocity(0);
+  this.play('iceK', true)
+    this.destroy();
+}
 
-    }
-
-  }
+  
 }

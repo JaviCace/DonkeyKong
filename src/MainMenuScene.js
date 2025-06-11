@@ -21,6 +21,7 @@ class MainMenuScene extends Phaser.Scene
         play.on('pointerdown', () => {
             this.music.stop();
             this.scene.start('MapScene');
+            this.scene.stop();
         });
 
         this.music = this.sound.add('Menu', { loop: true, volume: 0.5 });
