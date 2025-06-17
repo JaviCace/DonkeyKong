@@ -24,9 +24,6 @@ export default class IceFlower extends Item {
 
   this.scene.SnowballGroup.add(iceball);
 
-  // También lo puedes seguir guardando si quieres mantener una lista
-  if (!this.scene.iceballs) this.scene.iceballs = [];
-  this.scene.iceballs.push(iceball);
 }
 
 }
