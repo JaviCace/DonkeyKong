@@ -3,7 +3,7 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
     super(scene, x, y, texture);
 
     this.scene = scene;
-
+    this.atacar = true;
     // Agregar a escena y activar física
     scene.add.existing(this);
     scene.physics.add.existing(this);
@@ -17,7 +17,7 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
     this.keyV = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
 
     // Autodestrucción a los 10 segundos
-    this.scene.time.delayedCall(10000, () => {
+    this.scene.time.delayedCall(7000, () => {
       this.destroy(); // Elimina el sprite de la escena
       console.log('Item eliminado tras 10 segundos');
     });
@@ -30,7 +30,17 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
 
   update() {
     if (Phaser.Input.Keyboard.JustDown(this.keyV)) {
-      this.accion();
+      if(this.atacar)
+        {
+         this.accion();
+         this.atacar=false;
+
+            this.scene.time.delayedCall(1000, () => 
+              {
+                   this.atacar=true;
+      });
+        }
+      
     }
   }
 }
