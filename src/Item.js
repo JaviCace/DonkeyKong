@@ -35,7 +35,7 @@ export default class Item extends Phaser.Physics.Arcade.Sprite {
          this.accion();
          this.atacar=false;
 
-            this.scene.time.delayedCall(1000, () => 
+            this.scene.time.delayedCall(2000, () => 
               {
                    this.atacar=true;
       });
